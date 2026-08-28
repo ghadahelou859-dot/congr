@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
+
+<title>Nada's Graduation</title>
+
+<style>
+
+/* ======================================
+   RESET
+====================================== */
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html,
+body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
+body{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:#dbeaf4;
+
+  font-family:Arial, sans-serif;
+}
+
+
+/* ======================================
+   BOOK
+====================================== */
+
+.book{
+  position:relative;
+
+  width:100%;
+  max-width:480px;
+
+  height:100%;
+
+  overflow:hidden;
+
+  background:#dbeaf4;
+
+  perspective:2000px;
+
+  touch-action:none;
+}
+
+
+/* ======================================
+   PAGE
+====================================== */
+
+.page{
+  position:absolute;
+
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  overflow:hidden;
+
+  background:#dbeaf4;
+
+  transform-origin:left center;
+
+  transform-style:preserve-3d;
+
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+
+  transition:
+    transform .85s cubic-bezier(.65,.05,.36,1),
+    opacity .45s ease;
+
+  will-change:transform;
+}
+
+
+/* ======================================
+   PAGE IMAGE
+====================================== */
+
+.page img{
+  display:block;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  pointer-events:none;
+
+  user-select:none;
+  -webkit-user-select:none;
+
+  -webkit-user-drag:none;
+}
+
+
+/* ======================================
+   PAGE STATES
+====================================== */
+
+.page.active{
+  transform:rotateY(0deg);
+}
+
+.page.next{
+  transform:rotateY(0deg);
+}
+
+.page.turned{
+  transform:rotateY(-110deg);
+
+  pointer-events:none;
+}
+
+
+/* ======================================
+   PAGE SHADOW
+====================================== */
+
+.page::after{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  pointer-events:none;
+
+  opacity:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.20) 0%,
+      rgba(0,0,0,.07) 12%,
+      rgba(0,0,0,0) 35%
+    );
+
+  transition:opacity .45s ease;
+}
+
+.page.turning::after{
+  opacity:1;
+}
+
+
+/* ======================================
+   VIDEO PAGE
+====================================== */
+
+.video-page{
+  background:#dbeaf4;
+}
+
+.page-video{
+  display:block;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  background:#dbeaf4;
+
+  border:0;
+  outline:0;
+
+  pointer-events:none;
+}
+
+
+/* Hide browser video controls */
+
+video::-webkit-media-controls{
+  display:none !important;
+}
+
+video::-webkit-media-controls-enclosure{
+  display:none !important;
+}
+
+video::-webkit-media-controls-panel{
+  display:none !important;
+}
+
+video::-webkit-media-controls-play-button{
+  display:none !important;
+}
+
+video::-webkit-media-controls-start-playback-button{
+  display:none !important;
+}
+
+
+/* ======================================
+   COUNTDOWN OVERLAY
+====================================== */
+
+/*
+الأرقام تظهر فوق الفراغات
+الموجودة في countdown.png
+
+إذا احتجنا بعد التجربة نرفع
+أو ننزل الأرقام، عدلي فقط:
+top
+left
+width
+height
+*/
+
+.countdown-overlay{
+  position:absolute;
+
+  top:35%;
+  left:14%;
+
+  width:72%;
+  height:38%;
+
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;
+
+  column-gap:9%;
+  row-gap:7%;
+
+  direction:ltr;
+
+  pointer-events:none;
+
+  z-index:100;
+}
+
+
+.countdown-number{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  padding-bottom:22%;
+
+  color:#202020;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:clamp(
+    32px,
+    9vw,
+    52px
+  );
+
+  font-weight:500;
+
+  line-height:1;
+}
+
+
+/* ======================================
+   LOCATION CLICK AREA
+====================================== */
+
+.location-click{
+  position:absolute;
+
+  /*
+  المنطقة الشفافة فوق
+  زر Open Location بالصورة
+  */
+
+  left:20%;
+  width:62%;
+
+  bottom:10%;
+  height:11%;
+
+  z-index:150;
+
+  border:0;
+
+  background:transparent;
+
+  cursor:pointer;
+}
+
+
+/* ======================================
+   RSVP CLICK AREA
+====================================== */
+
+.rsvp-click{
+  position:absolute;
+
+  /*
+  المنطقة الشفافة فوق
+  زر RSVP بالصورة
+  */
+
+  left:18%;
+  width:64%;
+
+  top:52%;
+  height:13%;
+
+  z-index:150;
+
+  border:0;
+
+  background:transparent;
+
+  cursor:pointer;
+}
+
+
+/* ======================================
+   DESKTOP VIEW
+====================================== */
+
+@media(min-width:500px){
+
+  .book{
+    height:min(100vh,900px);
+
+    border-radius:22px;
+
+    box-shadow:
+      0 20px 65px
+      rgba(0,0,0,.18);
+  }
+
+}
+
+
+/* ======================================
+   REDUCED MOTION
+====================================== */
+
+@media(prefers-reduced-motion:reduce){
+
+  .page{
+    transition:none;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div
+  class="book"
+  id="book"
+>
+
+
+  <!-- ==================================
+       PAGE 01
+       COVER
+  =================================== -->
+
+  <section class="page active">
+
+    <img
+      src="cover.png"
+      alt="Nada Graduation Cover"
+    >
+
+  </section>
+
+
+
+  <!-- ==================================
+       PAGE 02
+       VIDEO
+  =================================== -->
+
+  <section class="page video-page">
+
+    <video
+      id="nadaVideo"
+      class="page-video"
+
+      playsinline
+      webkit-playsinline
+
+      preload="auto"
+
+      disablepictureinpicture
+
+      controlslist="nodownload noplaybackrate nofullscreen"
+    >
+
+      <source
+        src="video.mp4"
+        type="video/mp4"
+      >
+
+    </video>
+
+  </section>
+
+
+
+  <!-- ==================================
+       PAGE 03
+       SAVE THE TIME
+  =================================== -->
+
+  <section class="page">
+
+    <img
+      src="savetime.png"
+      alt="Save the Time"
+    >
+
+  </section>
+
+
+
+  <!-- ==================================
+       PAGE 04
+       DATE & TIME
+  =================================== -->
+
+  <section class="page">
+
+    <img
+      src="date-time.png"
+      alt="Date and Time"
+    >
+
+  </section>
+
+
+
+  <!-- ==================================
+       PAGE 05
+       COUNTDOWN
+  =================================== -->
+
+  <section class="page">
+
+    <img
+      src="countdown.png"
+      alt="Graduation Countdown"
+    >
+
+
+    <div class="countdown-overlay">
+
+      <div
+        class="countdown-number"
+        id="days">
+      </div>
+
+
+      <div
+        class="countdown-number"
+        id="hours">
+      </div>
+
+
+      <div
+        class="countdown-number"
+        id="minutes">
+      </div>
+
+
+      <div
+        class="countdown-number"
+        id="seconds">
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ==================================
+       PAGE 06
+       LOCATION
+  =================================== -->
+
+  <section class="page">
+
+    <img
+      src="location.png"
+      alt="Jasmine Hall Hebron"
+    >
+
+
+    <button
+      type="button"
+      class="location-click"
+      id="locationButton"
+      aria-label="Open location">
+    </button>
+
+  </section>
+
+
+
+  <!-- ==================================
+       PAGE 07
+       DRESS CODE
+  =================================== -->
+
+  <section class="page">
+
+    <img
+      src="dress-code.png"
+      alt="Dress Code"
+    >
+
+  </section>
+
+
+
+  <!-- ==================================
+       PAGE 08
+       RSVP
+  =================================== -->
+
+  <section class="page">
+
+    <img
+      src="rsvp.png"
+      alt="RSVP"
+    >
+
+
+    <button
+      type="button"
+      class="rsvp-click"
+      id="rsvpButton"
+      aria-label="Confirm attendance">
+    </button>
+
+  </section>
+
+
+</div>
+
+
+
+<script>
+
+/* ======================================
+   BASIC BOOK VARIABLES
+====================================== */
+
+const book =
+  document.getElementById("book");
+
+
+const pages =
+  [...document.querySelectorAll(".page")];
+
+
+let currentPage = 0;
+
+let animating = false;
+
+
+
+/* ======================================
+   VIDEO
+====================================== */
+
+const nadaVideo =
+  document.getElementById("nadaVideo");
+
+
+let videoHasPlayed = false;
+
+
+
+/* ======================================
+   UPDATE PAGE STATES
+====================================== */
+
+function updatePages(){
+
+  pages.forEach(
+    (page,index)=>{
+
+      page.classList.remove(
+        "active",
+        "next",
+        "turned",
+        "turning"
+      );
+
+
+      /* previous pages */
+
+      if(index < currentPage){
+
+        page.classList.add("turned");
+
+        page.style.zIndex =
+          pages.length + index;
+
+      }
+
+
+      /* current page */
+
+      else if(index === currentPage){
+
+        page.classList.add("active");
+
+        page.style.zIndex = 50;
+
+      }
+
+
+      /* next page */
+
+      else if(index === currentPage + 1){
+
+        page.classList.add("next");
+
+        page.style.zIndex = 20;
+
+      }
+
+
+      /* other pages */
+
+      else{
+
+        page.style.zIndex =
+          pages.length - index;
+
+      }
+
+    }
+  );
+
+
+  handleVideoPage();
+
+}
+
+
+
+/* ======================================
+   NEXT PAGE
+====================================== */
+
+function nextPage(){
+
+  if(animating){
+    return;
+  }
+
+
+  if(
+    currentPage >=
+    pages.length - 1
+  ){
+    return;
+  }
+
+
+  animating = true;
+
+
+  const current =
+    pages[currentPage];
+
+
+  current.classList.add(
+    "turning"
+  );
+
+
+  requestAnimationFrame(
+    ()=>{
+
+      current.classList.add(
+        "turned"
+      );
+
+    }
+  );
+
+
+  setTimeout(
+    ()=>{
+
+      currentPage++;
+
+      updatePages();
+
+      animating = false;
+
+    },
+    800
+  );
+
+}
+
+
+
+/* ======================================
+   PREVIOUS PAGE
+====================================== */
+
+function previousPage(){
+
+  if(animating){
+    return;
+  }
+
+
+  if(currentPage <= 0){
+    return;
+  }
+
+
+  animating = true;
+
+
+  const previous =
+    pages[currentPage - 1];
+
+
+  previous.classList.remove(
+    "turned"
+  );
+
+
+  previous.classList.add(
+    "turning"
+  );
+
+
+  setTimeout(
+    ()=>{
+
+      currentPage--;
+
+      updatePages();
+
+      animating = false;
+
+    },
+    800
+  );
+
+}
+
+
+
+/* ======================================
+   TOUCH SWIPE
+====================================== */
+
+let startX = 0;
+let startY = 0;
+
+
+book.addEventListener(
+  "touchstart",
+  event=>{
+
+    const touch =
+      event.touches[0];
+
+
+    startX =
+      touch.clientX;
+
+
+    startY =
+      touch.clientY;
+
+  },
+  {
+    passive:true
+  }
+);
+
+
+book.addEventListener(
+  "touchend",
+  event=>{
+
+    const touch =
+      event.changedTouches[0];
+
+
+    const deltaX =
+      touch.clientX -
+      startX;
+
+
+    const deltaY =
+      touch.clientY -
+      startY;
+
+
+    /*
+    Ignore vertical movement
+    */
+
+    if(
+      Math.abs(deltaY) >
+      Math.abs(deltaX)
+    ){
+      return;
+    }
+
+
+    /*
+    Swipe left
+    */
+
+    if(deltaX < -50){
+
+      nextPage();
+
+    }
+
+
+    /*
+    Swipe right
+    */
+
+    else if(deltaX > 50){
+
+      previousPage();
+
+    }
+
+  },
+  {
+    passive:true
+  }
+);
+
+
+
+/* ======================================
+   DESKTOP MOUSE DRAG
+====================================== */
+
+let pointerStartX = 0;
+
+let pointerDragging = false;
+
+
+book.addEventListener(
+  "pointerdown",
+  event=>{
+
+    /*
+    do not drag when clicking
+    location / RSVP
+    */
+
+    if(
+      event.target.closest(
+        "button"
+      )
+    ){
+      return;
+    }
+
+
+    pointerStartX =
+      event.clientX;
+
+
+    pointerDragging = true;
+
+  }
+);
+
+
+book.addEventListener(
+  "pointerup",
+  event=>{
+
+    if(!pointerDragging){
+      return;
+    }
+
+
+    pointerDragging = false;
+
+
+    const distance =
+      event.clientX -
+      pointerStartX;
+
+
+    if(distance < -60){
+
+      nextPage();
+
+    }
+
+
+    else if(distance > 60){
+
+      previousPage();
+
+    }
+
+  }
+);
+
+
+
+/* ======================================
+   VIDEO PAGE
+====================================== */
+
+function handleVideoPage(){
+
+  /*
+  Page 02 = index 1
+  */
+
+  if(currentPage === 1){
+
+    /*
+    restart video whenever
+    the visitor returns to it
+    */
+
+    nadaVideo.currentTime = 0;
+
+
+    nadaVideo.play()
+    .then(
+      ()=>{
+
+        videoHasPlayed = true;
+
+      }
+    )
+    .catch(
+      error=>{
+
+        /*
+        Some browsers require
+        a user interaction first.
+
+        Since the visitor swiped
+        from page 1, usually it
+        will work.
+        */
+
+        console.log(
+          "Video playback waiting for user interaction."
+        );
+
+      }
+    );
+
+  }
+
+  else{
+
+    nadaVideo.pause();
+
+  }
+
+}
+
+
+
+/* ======================================
+   VIDEO FINISHED
+====================================== */
+
+nadaVideo.addEventListener(
+  "ended",
+  ()=>{
+
+    /*
+    Only turn automatically
+    if visitor is still on video
+    */
+
+    if(currentPage === 1){
+
+      setTimeout(
+        ()=>{
+
+          nextPage();
+
+        },
+        300
+      );
+
+    }
+
+  }
+);
+
+
+
+/* ======================================
+   COUNTDOWN
+====================================== */
+
+
+/*
+Nada Graduation
+
+27 July 2027
+7:00 PM
+Palestine local time
+*/
+
+
+const eventDate =
+  new Date(
+    "2027-07-27T19:00:00+03:00"
+  );
+
+
+
+function updateCountdown(){
+
+  const now =
+    new Date();
+
+
+  let distance =
+    eventDate.getTime() -
+    now.getTime();
+
+
+  if(distance < 0){
+
+    distance = 0;
+
+  }
+
+
+
+  const day =
+    1000 *
+    60 *
+    60 *
+    24;
+
+
+  const hour =
+    1000 *
+    60 *
+    60;
+
+
+  const minute =
+    1000 *
+    60;
+
+
+
+  const days =
+    Math.floor(
+      distance / day
+    );
+
+
+  const hours =
+    Math.floor(
+      (distance % day) /
+      hour
+    );
+
+
+  const minutes =
+    Math.floor(
+      (distance % hour) /
+      minute
+    );
+
+
+  const seconds =
+    Math.floor(
+      (distance % minute) /
+      1000
+    );
+
+
+
+  document
+  .getElementById("days")
+  .textContent =
+    days;
+
+
+
+  document
+  .getElementById("hours")
+  .textContent =
+    String(hours)
+    .padStart(
+      2,
+      "0"
+    );
+
+
+
+  document
+  .getElementById("minutes")
+  .textContent =
+    String(minutes)
+    .padStart(
+      2,
+      "0"
+    );
+
+
+
+  document
+  .getElementById("seconds")
+  .textContent =
+    String(seconds)
+    .padStart(
+      2,
+      "0"
+    );
+
+}
+
+
+
+updateCountdown();
+
+
+setInterval(
+  updateCountdown,
+  1000
+);
+
+
+
+/* ======================================
+   LOCATION BUTTON
+====================================== */
+
+const locationButton =
+  document.getElementById(
+    "locationButton"
+  );
+
+
+locationButton.addEventListener(
+  "click",
+  ()=>{
+
+    window.open(
+      "https://maps.app.goo.gl/1EMywhgSKpQ3VcEL6",
+      "_blank"
+    );
+
+  }
+);
+
+
+
+/* ======================================
+   RSVP / WHATSAPP
+====================================== */
+
+const rsvpButton =
+  document.getElementById(
+    "rsvpButton"
+  );
+
+
+const whatsappNumber =
+  "970598494977";
+
+
+const whatsappMessage =
+  "مرحباً، أؤكد حضوري لحفل تخرج ندى 🎓✨";
+
+
+const whatsappURL =
+  "https://wa.me/" +
+  whatsappNumber +
+  "?text=" +
+  encodeURIComponent(
+    whatsappMessage
+  );
+
+
+
+rsvpButton.addEventListener(
+  "click",
+  ()=>{
+
+    window.open(
+      whatsappURL,
+      "_blank"
+    );
+
+  }
+);
+
+
+
+/* ======================================
+   KEYBOARD SUPPORT
+====================================== */
+
+document.addEventListener(
+  "keydown",
+  event=>{
+
+    /*
+    Left arrow = next
+    */
+
+    if(
+      event.key ===
+      "ArrowLeft"
+    ){
+
+      nextPage();
+
+    }
+
+
+    /*
+    Right arrow = previous
+    */
+
+    if(
+      event.key ===
+      "ArrowRight"
+    ){
+
+      previousPage();
+
+    }
+
+  }
+);
+
+
+
+/* ======================================
+   INITIALIZE
+====================================== */
+
+updatePages();
+
+</script>
+
+
+</body>
+</html>
