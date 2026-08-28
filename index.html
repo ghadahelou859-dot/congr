@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
 <meta charset="UTF-8">
 
@@ -8,14 +8,9 @@
   content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
 >
 
-<title>Nada's Graduation</title>
+<title>Nada Graduation Invitation</title>
 
 <style>
-
-/* ======================================
-   RESET
-====================================== */
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -31,165 +26,107 @@ body{
 
 body{
   display:flex;
-  align-items:center;
   justify-content:center;
-
-  background:#dbeaf4;
-
+  align-items:center;
+  background:#dcebf5;
   font-family:Arial, sans-serif;
 }
 
-
-/* ======================================
-   BOOK
-====================================== */
-
 .book{
   position:relative;
-
   width:100%;
   max-width:480px;
-
   height:100%;
-
   overflow:hidden;
-
-  background:#dbeaf4;
-
-  perspective:2000px;
-
+  background:#dcebf5;
+  perspective:1800px;
   touch-action:none;
 }
 
-
-/* ======================================
-   PAGE
-====================================== */
+/* =========================
+   PAGES
+========================= */
 
 .page{
   position:absolute;
-
   inset:0;
-
   width:100%;
   height:100%;
-
   overflow:hidden;
-
-  background:#dbeaf4;
+  background:#dcebf5;
 
   transform-origin:left center;
-
   transform-style:preserve-3d;
-
   backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
 
   transition:
     transform .85s cubic-bezier(.65,.05,.36,1),
     opacity .45s ease;
 
-  will-change:transform;
+  opacity:0;
+  pointer-events:none;
 }
 
+/* الصفحة الحالية */
+.page.current{
+  transform:translateX(0) rotateY(0deg);
+  opacity:1;
+  z-index:20;
+  pointer-events:auto;
+}
 
-/* ======================================
-   PAGE IMAGE
-====================================== */
+/* الصفحة القادمة موجودة تحت الحالية */
+.page.after{
+  transform:translateX(0) rotateY(0deg);
+  opacity:1;
+  z-index:10;
+}
 
-.page img{
-  display:block;
+/* الصفحة السابقة */
+.page.before{
+  transform:translateX(-100%) rotateY(-95deg);
+  opacity:0;
+  z-index:5;
+}
 
+/* أثناء تقليب الصفحة */
+.page.flip-out{
+  transform:translateX(-100%) rotateY(-100deg);
+  opacity:0;
+  z-index:30;
+}
+
+/* رجوع الصفحة */
+.page.flip-back{
+  transform:translateX(0) rotateY(0deg);
+  opacity:1;
+  z-index:30;
+}
+
+.page img,
+.page video{
   width:100%;
   height:100%;
-
+  display:block;
   object-fit:cover;
+}
 
+.page img{
   pointer-events:none;
-
   user-select:none;
-  -webkit-user-select:none;
-
   -webkit-user-drag:none;
 }
 
-
-/* ======================================
-   PAGE STATES
-====================================== */
-
-.page.active{
-  transform:rotateY(0deg);
-}
-
-.page.next{
-  transform:rotateY(0deg);
-}
-
-.page.turned{
-  transform:rotateY(-110deg);
-
-  pointer-events:none;
-}
-
-
-/* ======================================
-   PAGE SHADOW
-====================================== */
-
-.page::after{
-  content:"";
-
-  position:absolute;
-
-  inset:0;
-
-  pointer-events:none;
-
-  opacity:0;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0,0,0,.20) 0%,
-      rgba(0,0,0,.07) 12%,
-      rgba(0,0,0,0) 35%
-    );
-
-  transition:opacity .45s ease;
-}
-
-.page.turning::after{
-  opacity:1;
-}
-
-
-/* ======================================
-   VIDEO PAGE
-====================================== */
-
-.video-page{
-  background:#dbeaf4;
-}
+/* =========================
+   VIDEO
+========================= */
 
 .page-video{
-  display:block;
-
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-
-  background:#dbeaf4;
-
   border:0;
   outline:0;
-
+  background:#dcebf5;
   pointer-events:none;
 }
-
-
-/* Hide browser video controls */
 
 video::-webkit-media-controls{
   display:none !important;
@@ -203,34 +140,14 @@ video::-webkit-media-controls-panel{
   display:none !important;
 }
 
-video::-webkit-media-controls-play-button{
-  display:none !important;
-}
-
-video::-webkit-media-controls-start-playback-button{
-  display:none !important;
-}
-
-
-/* ======================================
-   COUNTDOWN OVERLAY
-====================================== */
-
-/*
-الأرقام تظهر فوق الفراغات
-الموجودة في countdown.png
-
-إذا احتجنا بعد التجربة نرفع
-أو ننزل الأرقام، عدلي فقط:
-top
-left
-width
-height
-*/
+/* =========================
+   COUNTDOWN
+========================= */
 
 .countdown-overlay{
   position:absolute;
 
+  /* عدلي هذه لاحقًا لو احتجنا */
   top:35%;
   left:14%;
 
@@ -238,7 +155,6 @@ height
   height:38%;
 
   display:grid;
-
   grid-template-columns:1fr 1fr;
   grid-template-rows:1fr 1fr;
 
@@ -247,50 +163,29 @@ height
 
   direction:ltr;
 
+  z-index:50;
   pointer-events:none;
-
-  z-index:100;
 }
-
 
 .countdown-number{
   display:flex;
-
   align-items:center;
   justify-content:center;
 
   padding-bottom:22%;
 
-  color:#202020;
+  font-family:Georgia, "Times New Roman", serif;
+  font-size:clamp(32px,9vw,52px);
 
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:clamp(
-    32px,
-    9vw,
-    52px
-  );
-
-  font-weight:500;
-
-  line-height:1;
+  color:#222;
 }
 
-
-/* ======================================
-   LOCATION CLICK AREA
-====================================== */
+/* =========================
+   LOCATION
+========================= */
 
 .location-click{
   position:absolute;
-
-  /*
-  المنطقة الشفافة فوق
-  زر Open Location بالصورة
-  */
 
   left:20%;
   width:62%;
@@ -298,27 +193,19 @@ height
   bottom:10%;
   height:11%;
 
-  z-index:150;
+  z-index:100;
 
   border:0;
-
   background:transparent;
-
   cursor:pointer;
 }
 
-
-/* ======================================
-   RSVP CLICK AREA
-====================================== */
+/* =========================
+   RSVP
+========================= */
 
 .rsvp-click{
   position:absolute;
-
-  /*
-  المنطقة الشفافة فوق
-  زر RSVP بالصورة
-  */
 
   left:18%;
   width:64%;
@@ -326,196 +213,75 @@ height
   top:52%;
   height:13%;
 
-  z-index:150;
+  z-index:100;
 
   border:0;
-
   background:transparent;
-
   cursor:pointer;
 }
 
-
-/* ======================================
-   DESKTOP VIEW
-====================================== */
+/* =========================
+   DESKTOP
+========================= */
 
 @media(min-width:500px){
-
   .book{
     height:min(100vh,900px);
-
-    border-radius:22px;
-
-    box-shadow:
-      0 20px 65px
-      rgba(0,0,0,.18);
+    border-radius:20px;
+    box-shadow:0 20px 60px rgba(0,0,0,.18);
   }
-
 }
-
-
-/* ======================================
-   REDUCED MOTION
-====================================== */
-
-@media(prefers-reduced-motion:reduce){
-
-  .page{
-    transition:none;
-  }
-
-}
-
 </style>
 </head>
 
-
 <body>
 
+<div class="book" id="book">
 
-<div
-  class="book"
-  id="book"
->
-
-
-  <!-- ==================================
-       PAGE 01
-       COVER
-  =================================== -->
-
-  <section class="page active">
-
-    <img
-      src="cover.png"
-      alt="Nada Graduation Cover"
-    >
-
+  <!-- PAGE 1 -->
+  <section class="page current">
+    <img src="cover.png" alt="Cover">
   </section>
 
-
-
-  <!-- ==================================
-       PAGE 02
-       VIDEO
-  =================================== -->
-
-  <section class="page video-page">
-
+  <!-- PAGE 2 VIDEO -->
+  <section class="page after">
     <video
       id="nadaVideo"
       class="page-video"
-
       playsinline
       webkit-playsinline
-
       preload="auto"
-
       disablepictureinpicture
-
-      controlslist="nodownload noplaybackrate nofullscreen"
     >
-
-      <source
-        src="video.mp4"
-        type="video/mp4"
-      >
-
+      <source src="video.mp4" type="video/mp4">
     </video>
-
   </section>
 
-
-
-  <!-- ==================================
-       PAGE 03
-       SAVE THE TIME
-  =================================== -->
-
+  <!-- PAGE 3 -->
   <section class="page">
-
-    <img
-      src="savetime.png"
-      alt="Save the Time"
-    >
-
+    <img src="savetime.png" alt="Save the Time">
   </section>
 
-
-
-  <!-- ==================================
-       PAGE 04
-       DATE & TIME
-  =================================== -->
-
+  <!-- PAGE 4 -->
   <section class="page">
-
-    <img
-      src="date-time.png"
-      alt="Date and Time"
-    >
-
+    <img src="date-time.png" alt="Date and Time">
   </section>
 
-
-
-  <!-- ==================================
-       PAGE 05
-       COUNTDOWN
-  =================================== -->
-
+  <!-- PAGE 5 COUNTDOWN -->
   <section class="page">
-
-    <img
-      src="countdown.png"
-      alt="Graduation Countdown"
-    >
-
+    <img src="countdown.png" alt="Countdown">
 
     <div class="countdown-overlay">
-
-      <div
-        class="countdown-number"
-        id="days">
-      </div>
-
-
-      <div
-        class="countdown-number"
-        id="hours">
-      </div>
-
-
-      <div
-        class="countdown-number"
-        id="minutes">
-      </div>
-
-
-      <div
-        class="countdown-number"
-        id="seconds">
-      </div>
-
+      <div class="countdown-number" id="days"></div>
+      <div class="countdown-number" id="hours"></div>
+      <div class="countdown-number" id="minutes"></div>
+      <div class="countdown-number" id="seconds"></div>
     </div>
-
   </section>
 
-
-
-  <!-- ==================================
-       PAGE 06
-       LOCATION
-  =================================== -->
-
+  <!-- PAGE 6 LOCATION -->
   <section class="page">
-
-    <img
-      src="location.png"
-      alt="Jasmine Hall Hebron"
-    >
-
+    <img src="location.png" alt="Location">
 
     <button
       type="button"
@@ -523,39 +289,16 @@ height
       id="locationButton"
       aria-label="Open location">
     </button>
-
   </section>
 
-
-
-  <!-- ==================================
-       PAGE 07
-       DRESS CODE
-  =================================== -->
-
+  <!-- PAGE 7 -->
   <section class="page">
-
-    <img
-      src="dress-code.png"
-      alt="Dress Code"
-    >
-
+    <img src="dress-code.png" alt="Dress Code">
   </section>
 
-
-
-  <!-- ==================================
-       PAGE 08
-       RSVP
-  =================================== -->
-
+  <!-- PAGE 8 RSVP -->
   <section class="page">
-
-    <img
-      src="rsvp.png"
-      alt="RSVP"
-    >
-
+    <img src="rsvp.png" alt="RSVP">
 
     <button
       type="button"
@@ -563,228 +306,133 @@ height
       id="rsvpButton"
       aria-label="Confirm attendance">
     </button>
-
   </section>
-
 
 </div>
 
-
-
 <script>
 
-/* ======================================
-   BASIC BOOK VARIABLES
-====================================== */
+/* =========================
+   PAGES
+========================= */
 
-const book =
-  document.getElementById("book");
-
-
-const pages =
-  [...document.querySelectorAll(".page")];
-
+const book = document.getElementById("book");
+const pages = [...document.querySelectorAll(".page")];
 
 let currentPage = 0;
-
 let animating = false;
 
 
+/* =========================
+   UPDATE STATES
+========================= */
 
-/* ======================================
-   VIDEO
-====================================== */
+function setPageStates(){
 
-const nadaVideo =
-  document.getElementById("nadaVideo");
+  pages.forEach((page,index)=>{
 
+    page.classList.remove(
+      "current",
+      "after",
+      "before",
+      "flip-out",
+      "flip-back"
+    );
 
-let videoHasPlayed = false;
+    if(index < currentPage){
 
+      page.classList.add("before");
 
+    }else if(index === currentPage){
 
-/* ======================================
-   UPDATE PAGE STATES
-====================================== */
+      page.classList.add("current");
 
-function updatePages(){
+    }else if(index === currentPage + 1){
 
-  pages.forEach(
-    (page,index)=>{
-
-      page.classList.remove(
-        "active",
-        "next",
-        "turned",
-        "turning"
-      );
-
-
-      /* previous pages */
-
-      if(index < currentPage){
-
-        page.classList.add("turned");
-
-        page.style.zIndex =
-          pages.length + index;
-
-      }
-
-
-      /* current page */
-
-      else if(index === currentPage){
-
-        page.classList.add("active");
-
-        page.style.zIndex = 50;
-
-      }
-
-
-      /* next page */
-
-      else if(index === currentPage + 1){
-
-        page.classList.add("next");
-
-        page.style.zIndex = 20;
-
-      }
-
-
-      /* other pages */
-
-      else{
-
-        page.style.zIndex =
-          pages.length - index;
-
-      }
+      page.classList.add("after");
 
     }
-  );
 
+  });
 
-  handleVideoPage();
+  handleVideo();
 
 }
 
 
-
-/* ======================================
-   NEXT PAGE
-====================================== */
+/* =========================
+   NEXT
+========================= */
 
 function nextPage(){
 
-  if(animating){
-    return;
-  }
+  if(animating) return;
 
-
-  if(
-    currentPage >=
-    pages.length - 1
-  ){
-    return;
-  }
-
+  if(currentPage >= pages.length - 1) return;
 
   animating = true;
 
+  const oldPage = pages[currentPage];
+  const newPage = pages[currentPage + 1];
 
-  const current =
-    pages[currentPage];
+  /* الصفحة القادمة تظهر تحت الحالية */
+  newPage.classList.remove("after");
+  newPage.classList.add("current");
 
+  /* الصفحة الحالية تنقلب */
+  oldPage.classList.remove("current");
+  oldPage.classList.add("flip-out");
 
-  current.classList.add(
-    "turning"
-  );
+  setTimeout(()=>{
 
+    currentPage++;
 
-  requestAnimationFrame(
-    ()=>{
+    setPageStates();
 
-      current.classList.add(
-        "turned"
-      );
+    animating = false;
 
-    }
-  );
-
-
-  setTimeout(
-    ()=>{
-
-      currentPage++;
-
-      updatePages();
-
-      animating = false;
-
-    },
-    800
-  );
+  },850);
 
 }
 
 
-
-/* ======================================
-   PREVIOUS PAGE
-====================================== */
+/* =========================
+   PREVIOUS
+========================= */
 
 function previousPage(){
 
-  if(animating){
-    return;
-  }
+  if(animating) return;
 
-
-  if(currentPage <= 0){
-    return;
-  }
-
+  if(currentPage <= 0) return;
 
   animating = true;
 
+  const current = pages[currentPage];
+  const previous = pages[currentPage - 1];
 
-  const previous =
-    pages[currentPage - 1];
+  current.classList.remove("current");
+  current.classList.add("after");
 
+  previous.classList.remove("before");
+  previous.classList.add("flip-back");
 
-  previous.classList.remove(
-    "turned"
-  );
+  setTimeout(()=>{
 
+    currentPage--;
 
-  previous.classList.add(
-    "turning"
-  );
+    setPageStates();
 
+    animating = false;
 
-  setTimeout(
-    ()=>{
-
-      currentPage--;
-
-      updatePages();
-
-      animating = false;
-
-    },
-    800
-  );
+  },850);
 
 }
 
 
-
-/* ======================================
-   TOUCH SWIPE
-====================================== */
+/* =========================
+   TOUCH
+========================= */
 
 let startX = 0;
 let startY = 0;
@@ -792,207 +440,100 @@ let startY = 0;
 
 book.addEventListener(
   "touchstart",
-  event=>{
+  e=>{
 
-    const touch =
-      event.touches[0];
+    const touch = e.touches[0];
 
-
-    startX =
-      touch.clientX;
-
-
-    startY =
-      touch.clientY;
+    startX = touch.clientX;
+    startY = touch.clientY;
 
   },
-  {
-    passive:true
-  }
+  {passive:true}
 );
 
 
 book.addEventListener(
   "touchend",
-  event=>{
+  e=>{
 
-    const touch =
-      event.changedTouches[0];
+    const touch = e.changedTouches[0];
 
+    const dx = touch.clientX - startX;
+    const dy = touch.clientY - startY;
 
-    const deltaX =
-      touch.clientX -
-      startX;
+    if(Math.abs(dx) < 45) return;
 
+    if(Math.abs(dx) < Math.abs(dy)) return;
 
-    const deltaY =
-      touch.clientY -
-      startY;
-
-
-    /*
-    Ignore vertical movement
-    */
-
-    if(
-      Math.abs(deltaY) >
-      Math.abs(deltaX)
-    ){
-      return;
-    }
-
-
-    /*
-    Swipe left
-    */
-
-    if(deltaX < -50){
-
+    if(dx < 0){
       nextPage();
-
-    }
-
-
-    /*
-    Swipe right
-    */
-
-    else if(deltaX > 50){
-
+    }else{
       previousPage();
-
     }
 
   },
-  {
-    passive:true
-  }
+  {passive:true}
 );
 
 
+/* =========================
+   COMPUTER MOUSE
+========================= */
 
-/* ======================================
-   DESKTOP MOUSE DRAG
-====================================== */
-
-let pointerStartX = 0;
-
-let pointerDragging = false;
+let mouseDown = false;
+let mouseStartX = 0;
 
 
-book.addEventListener(
-  "pointerdown",
-  event=>{
+book.addEventListener("pointerdown",e=>{
 
-    /*
-    do not drag when clicking
-    location / RSVP
-    */
+  if(e.target.closest("button")) return;
 
-    if(
-      event.target.closest(
-        "button"
-      )
-    ){
-      return;
-    }
+  mouseDown = true;
+  mouseStartX = e.clientX;
+
+});
 
 
-    pointerStartX =
-      event.clientX;
+book.addEventListener("pointerup",e=>{
 
+  if(!mouseDown) return;
 
-    pointerDragging = true;
+  mouseDown = false;
 
+  const dx = e.clientX - mouseStartX;
+
+  if(Math.abs(dx) < 55) return;
+
+  if(dx < 0){
+    nextPage();
+  }else{
+    previousPage();
   }
-);
+
+});
 
 
-book.addEventListener(
-  "pointerup",
-  event=>{
+/* =========================
+   VIDEO
+========================= */
 
-    if(!pointerDragging){
-      return;
-    }
+const nadaVideo = document.getElementById("nadaVideo");
 
 
-    pointerDragging = false;
-
-
-    const distance =
-      event.clientX -
-      pointerStartX;
-
-
-    if(distance < -60){
-
-      nextPage();
-
-    }
-
-
-    else if(distance > 60){
-
-      previousPage();
-
-    }
-
-  }
-);
-
-
-
-/* ======================================
-   VIDEO PAGE
-====================================== */
-
-function handleVideoPage(){
+function handleVideo(){
 
   /*
-  Page 02 = index 1
+  الفيديو هو الصفحة رقم 2
+  index = 1
   */
 
   if(currentPage === 1){
 
-    /*
-    restart video whenever
-    the visitor returns to it
-    */
-
     nadaVideo.currentTime = 0;
 
+    nadaVideo.play().catch(()=>{});
 
-    nadaVideo.play()
-    .then(
-      ()=>{
-
-        videoHasPlayed = true;
-
-      }
-    )
-    .catch(
-      error=>{
-
-        /*
-        Some browsers require
-        a user interaction first.
-
-        Since the visitor swiped
-        from page 1, usually it
-        will work.
-        */
-
-        console.log(
-          "Video playback waiting for user interaction."
-        );
-
-      }
-    );
-
-  }
-
-  else{
+  }else{
 
     nadaVideo.pause();
 
@@ -1001,169 +542,92 @@ function handleVideoPage(){
 }
 
 
+/* بعد انتهاء الفيديو */
 
-/* ======================================
-   VIDEO FINISHED
-====================================== */
+nadaVideo.addEventListener("ended",()=>{
 
-nadaVideo.addEventListener(
-  "ended",
-  ()=>{
+  if(currentPage === 1){
 
-    /*
-    Only turn automatically
-    if visitor is still on video
-    */
-
-    if(currentPage === 1){
-
-      setTimeout(
-        ()=>{
-
-          nextPage();
-
-        },
-        300
-      );
-
-    }
+    setTimeout(()=>{
+      nextPage();
+    },300);
 
   }
-);
+
+});
 
 
-
-/* ======================================
+/* =========================
    COUNTDOWN
-====================================== */
-
-
-/*
-Nada Graduation
-
-27 July 2027
-7:00 PM
-Palestine local time
-*/
-
+========================= */
 
 const eventDate =
-  new Date(
-    "2027-07-27T19:00:00+03:00"
-  );
-
+  new Date("2027-07-27T19:00:00+03:00");
 
 
 function updateCountdown(){
 
-  const now =
-    new Date();
-
-
-  let distance =
+  let diff =
     eventDate.getTime() -
-    now.getTime();
+    Date.now();
 
 
-  if(distance < 0){
-
-    distance = 0;
-
+  if(diff < 0){
+    diff = 0;
   }
 
 
-
   const day =
-    1000 *
-    60 *
-    60 *
-    24;
-
+    1000 * 60 * 60 * 24;
 
   const hour =
-    1000 *
-    60 *
-    60;
-
+    1000 * 60 * 60;
 
   const minute =
-    1000 *
-    60;
-
+    1000 * 60;
 
 
   const days =
-    Math.floor(
-      distance / day
-    );
+    Math.floor(diff / day);
 
 
   const hours =
     Math.floor(
-      (distance % day) /
-      hour
+      (diff % day) / hour
     );
 
 
   const minutes =
     Math.floor(
-      (distance % hour) /
-      minute
+      (diff % hour) / minute
     );
 
 
   const seconds =
     Math.floor(
-      (distance % minute) /
-      1000
+      (diff % minute) / 1000
     );
 
 
+  document.getElementById("days")
+    .textContent = days;
 
-  document
-  .getElementById("days")
-  .textContent =
-    days;
+  document.getElementById("hours")
+    .textContent =
+    String(hours).padStart(2,"0");
 
+  document.getElementById("minutes")
+    .textContent =
+    String(minutes).padStart(2,"0");
 
-
-  document
-  .getElementById("hours")
-  .textContent =
-    String(hours)
-    .padStart(
-      2,
-      "0"
-    );
-
-
-
-  document
-  .getElementById("minutes")
-  .textContent =
-    String(minutes)
-    .padStart(
-      2,
-      "0"
-    );
-
-
-
-  document
-  .getElementById("seconds")
-  .textContent =
-    String(seconds)
-    .padStart(
-      2,
-      "0"
-    );
+  document.getElementById("seconds")
+    .textContent =
+    String(seconds).padStart(2,"0");
 
 }
 
 
-
 updateCountdown();
-
 
 setInterval(
   updateCountdown,
@@ -1171,40 +635,25 @@ setInterval(
 );
 
 
+/* =========================
+   LOCATION
+========================= */
 
-/* ======================================
-   LOCATION BUTTON
-====================================== */
+document
+.getElementById("locationButton")
+.addEventListener("click",()=>{
 
-const locationButton =
-  document.getElementById(
-    "locationButton"
+  window.open(
+    "https://maps.app.goo.gl/1EMywhgSKpQ3VcEL6",
+    "_blank"
   );
 
-
-locationButton.addEventListener(
-  "click",
-  ()=>{
-
-    window.open(
-      "https://maps.app.goo.gl/1EMywhgSKpQ3VcEL6",
-      "_blank"
-    );
-
-  }
-);
+});
 
 
-
-/* ======================================
-   RSVP / WHATSAPP
-====================================== */
-
-const rsvpButton =
-  document.getElementById(
-    "rsvpButton"
-  );
-
+/* =========================
+   RSVP
+========================= */
 
 const whatsappNumber =
   "970598494977";
@@ -1214,78 +663,50 @@ const whatsappMessage =
   "مرحباً، أؤكد حضوري لحفل تخرج ندى 🎓✨";
 
 
-const whatsappURL =
-  "https://wa.me/" +
-  whatsappNumber +
-  "?text=" +
-  encodeURIComponent(
-    whatsappMessage
-  );
+document
+.getElementById("rsvpButton")
+.addEventListener("click",()=>{
 
-
-
-rsvpButton.addEventListener(
-  "click",
-  ()=>{
-
-    window.open(
-      whatsappURL,
-      "_blank"
+  const url =
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    encodeURIComponent(
+      whatsappMessage
     );
 
+  window.open(
+    url,
+    "_blank"
+  );
+
+});
+
+
+/* =========================
+   KEYBOARD
+========================= */
+
+document.addEventListener("keydown",e=>{
+
+  if(e.key === "ArrowLeft"){
+    nextPage();
   }
-);
 
-
-
-/* ======================================
-   KEYBOARD SUPPORT
-====================================== */
-
-document.addEventListener(
-  "keydown",
-  event=>{
-
-    /*
-    Left arrow = next
-    */
-
-    if(
-      event.key ===
-      "ArrowLeft"
-    ){
-
-      nextPage();
-
-    }
-
-
-    /*
-    Right arrow = previous
-    */
-
-    if(
-      event.key ===
-      "ArrowRight"
-    ){
-
-      previousPage();
-
-    }
-
+  if(e.key === "ArrowRight"){
+    previousPage();
   }
-);
+
+});
 
 
+/* =========================
+   START
+========================= */
 
-/* ======================================
-   INITIALIZE
-====================================== */
-
-updatePages();
+setPageStates();
 
 </script>
-
 
 </body>
 </html>
