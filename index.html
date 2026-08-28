@@ -86,7 +86,7 @@ body{
 
 
 /* =========================
-   PAGE IMAGE
+   IMAGES
    الصورة كاملة بدون قص
 ========================= */
 
@@ -136,7 +136,7 @@ body{
 }
 
 
-/* ظل أثناء التقليب */
+/* ظل أثناء تقليب الورقة */
 
 .page::after{
   content:"";
@@ -158,7 +158,6 @@ body{
 
   transition:opacity .4s ease;
 }
-
 
 .page.flipping::after{
   opacity:1;
@@ -190,7 +189,7 @@ body{
 }
 
 
-/* اخفاء شريط الفيديو */
+/* إخفاء شريط الفيديو */
 
 video::-webkit-media-controls{
   display:none !important;
@@ -249,7 +248,7 @@ video::-webkit-media-controls-start-playback-button{
 
 
 /* =========================
-   NAV ARROWS
+   NAVIGATION ARROWS
 ========================= */
 
 .nav-arrow{
@@ -283,11 +282,9 @@ video::-webkit-media-controls-start-playback-button{
   transition:opacity .25s ease;
 }
 
-
 #prevBtn{
   left:14px;
 }
-
 
 #nextBtn{
   right:14px;
@@ -295,7 +292,6 @@ video::-webkit-media-controls-start-playback-button{
   animation:
     nextMove 1.3s ease-in-out infinite;
 }
-
 
 @keyframes nextMove{
 
@@ -309,7 +305,6 @@ video::-webkit-media-controls-start-playback-button{
   }
 
 }
-
 
 .nav-arrow.hidden{
   opacity:0;
@@ -354,7 +349,6 @@ video::-webkit-media-controls-start-playback-button{
   pointer-events:none;
 }
 
-
 .book.first-page .swipe-label{
   display:none;
 }
@@ -372,7 +366,6 @@ video::-webkit-media-controls-start-playback-button{
 
   pointer-events:none;
 }
-
 
 .countdown-number{
   position:absolute;
@@ -403,31 +396,22 @@ video::-webkit-media-controls-start-playback-button{
 }
 
 
-/* وسط المربع العلوي اليسار */
+/* الأرقام داخل وسط المربعات */
 
 #days{
   left:29%;
   top:48%;
 }
 
-
-/* وسط المربع العلوي اليمين */
-
 #hours{
   left:69%;
   top:48%;
 }
 
-
-/* وسط المربع السفلي اليسار */
-
 #minutes{
   left:29%;
   top:69%;
 }
-
-
-/* وسط المربع السفلي اليمين */
 
 #seconds{
   left:69%;
@@ -498,7 +482,6 @@ video::-webkit-media-controls-start-playback-button{
 </style>
 </head>
 
-
 <body>
 
 <div
@@ -507,10 +490,7 @@ video::-webkit-media-controls-start-playback-button{
 >
 
 
-<!-- =========================
-     PAGE 01 COVER
-========================= -->
-
+<!-- PAGE 01 COVER -->
 <section class="page">
 
   <img
@@ -521,10 +501,7 @@ video::-webkit-media-controls-start-playback-button{
 </section>
 
 
-<!-- =========================
-     PAGE 02 VIDEO
-========================= -->
-
+<!-- PAGE 02 VIDEO -->
 <section class="page">
 
   <video
@@ -553,10 +530,7 @@ video::-webkit-media-controls-start-playback-button{
 </section>
 
 
-<!-- =========================
-     PAGE 03 SAVE THE TIME
-========================= -->
-
+<!-- PAGE 03 SAVE THE TIME -->
 <section class="page">
 
   <img
@@ -567,10 +541,7 @@ video::-webkit-media-controls-start-playback-button{
 </section>
 
 
-<!-- =========================
-     PAGE 04 DATE TIME
-========================= -->
-
+<!-- PAGE 04 DATE TIME -->
 <section class="page">
 
   <img
@@ -581,17 +552,13 @@ video::-webkit-media-controls-start-playback-button{
 </section>
 
 
-<!-- =========================
-     PAGE 05 COUNTDOWN
-========================= -->
-
+<!-- PAGE 05 COUNTDOWN -->
 <section class="page">
 
   <img
     src="countdown.png"
     alt="Countdown"
   >
-
 
   <div class="countdown-overlay">
 
@@ -620,17 +587,13 @@ video::-webkit-media-controls-start-playback-button{
 </section>
 
 
-<!-- =========================
-     PAGE 06 LOCATION
-========================= -->
-
+<!-- PAGE 06 LOCATION -->
 <section class="page">
 
   <img
     src="location.png"
     alt="Jasmine Hall Hebron"
   >
-
 
   <a
     class="location-click"
@@ -647,10 +610,7 @@ video::-webkit-media-controls-start-playback-button{
 </section>
 
 
-<!-- =========================
-     PAGE 07 DRESS CODE
-========================= -->
-
+<!-- PAGE 07 DRESS CODE -->
 <section class="page">
 
   <img
@@ -661,17 +621,13 @@ video::-webkit-media-controls-start-playback-button{
 </section>
 
 
-<!-- =========================
-     PAGE 08 RSVP
-========================= -->
-
+<!-- PAGE 08 RSVP -->
 <section class="page">
 
   <img
     src="rsvp.png"
     alt="Confirm Attendance"
   >
-
 
   <a
     class="rsvp-click"
@@ -688,10 +644,7 @@ video::-webkit-media-controls-start-playback-button{
 </section>
 
 
-<!-- =========================
-     MUSIC
-========================= -->
-
+<!-- MUSIC -->
 <audio
   id="bgMusic"
   loop
@@ -716,10 +669,7 @@ video::-webkit-media-controls-start-playback-button{
 </button>
 
 
-<!-- =========================
-     PREVIOUS
-========================= -->
-
+<!-- PREVIOUS -->
 <button
   id="prevBtn"
   class="nav-arrow hidden"
@@ -730,10 +680,7 @@ video::-webkit-media-controls-start-playback-button{
 </button>
 
 
-<!-- =========================
-     SWIPE
-========================= -->
-
+<!-- SWIPE LABEL -->
 <div
   id="swipeLabel"
   class="swipe-label"
@@ -742,10 +689,7 @@ video::-webkit-media-controls-start-playback-button{
 </div>
 
 
-<!-- =========================
-     NEXT
-========================= -->
-
+<!-- NEXT -->
 <button
   id="nextBtn"
   class="nav-arrow hidden"
@@ -768,30 +712,23 @@ video::-webkit-media-controls-start-playback-button{
 const book =
   document.getElementById("book");
 
-
 const pages =
   [...document.querySelectorAll(".page")];
-
 
 const nextBtn =
   document.getElementById("nextBtn");
 
-
 const prevBtn =
   document.getElementById("prevBtn");
-
 
 const swipeLabel =
   document.getElementById("swipeLabel");
 
-
 const nadaVideo =
   document.getElementById("nadaVideo");
 
-
 const bgMusic =
   document.getElementById("bgMusic");
-
 
 const musicBtn =
   document.getElementById("musicBtn");
@@ -807,76 +744,47 @@ let musicManuallyStopped = false;
 
 
 /* =========================
-   NAVIGATION
+   NAVIGATION STATE
 ========================= */
 
 function updateNavigation(){
 
   if(currentPage === 0){
 
-    book.classList.add(
-      "first-page"
-    );
+    book.classList.add("first-page");
 
+    prevBtn.classList.add("hidden");
 
-    prevBtn.classList.add(
-      "hidden"
-    );
-
-
-    nextBtn.classList.add(
-      "hidden"
-    );
-
+    nextBtn.classList.add("hidden");
 
     return;
-
   }
 
 
-  book.classList.remove(
-    "first-page"
-  );
+  book.classList.remove("first-page");
 
 
   if(currentPage > 0){
 
-    prevBtn.classList.remove(
-      "hidden"
-    );
+    prevBtn.classList.remove("hidden");
 
-  }
+  }else{
 
-  else{
-
-    prevBtn.classList.add(
-      "hidden"
-    );
+    prevBtn.classList.add("hidden");
 
   }
 
 
-  if(
-    currentPage ===
-    pages.length - 1
-  ){
+  if(currentPage === pages.length - 1){
 
-    nextBtn.classList.add(
-      "hidden"
-    );
-
+    nextBtn.classList.add("hidden");
 
     swipeLabel.textContent =
       "الصفحة الأخيرة";
 
-  }
+  }else{
 
-  else{
-
-    nextBtn.classList.remove(
-      "hidden"
-    );
-
+    nextBtn.classList.remove("hidden");
 
     swipeLabel.textContent =
       "اسحبي الصفحة";
@@ -896,17 +804,12 @@ function nextPage(){
     return;
   }
 
-
-  if(
-    currentPage >=
-    pages.length - 1
-  ){
+  if(currentPage >= pages.length - 1){
     return;
   }
 
 
   animating = true;
-
 
   const current =
     pages[currentPage];
@@ -964,7 +867,6 @@ function previousPage(){
     return;
   }
 
-
   if(currentPage <= 0){
     return;
   }
@@ -974,9 +876,7 @@ function previousPage(){
 
 
   const previous =
-    pages[
-      currentPage - 1
-    ];
+    pages[currentPage - 1];
 
 
   previous.classList.add(
@@ -1033,7 +933,11 @@ nextBtn.addEventListener(
 
 prevBtn.addEventListener(
   "click",
-  previousPage
+  ()=>{
+
+    previousPage();
+
+  }
 );
 
 
@@ -1042,6 +946,7 @@ prevBtn.addEventListener(
 ========================= */
 
 let startX = 0;
+
 let startY = 0;
 
 
@@ -1104,9 +1009,7 @@ book.addEventListener(
       startY;
 
 
-    if(
-      Math.abs(dx) < 45
-    ){
+    if(Math.abs(dx) < 45){
       return;
     }
 
@@ -1123,9 +1026,7 @@ book.addEventListener(
 
       nextPage();
 
-    }
-
-    else{
+    }else{
 
       previousPage();
 
@@ -1153,9 +1054,7 @@ function handleVideo(){
     .play()
     .catch(()=>{});
 
-  }
-
-  else{
+  }else{
 
     nadaVideo.pause();
 
@@ -1214,15 +1113,14 @@ async function tryStartMusic(){
     await bgMusic.play();
 
 
-    musicPlaying = true;
+    musicPlaying =
+      true;
 
 
     musicBtn.textContent =
       "♫";
 
-  }
-
-  catch(error){}
+  }catch(error){}
 
 }
 
@@ -1276,9 +1174,7 @@ musicBtn.addEventListener(
       musicBtn.textContent =
         "♫";
 
-    }
-
-    catch(error){}
+    }catch(error){}
 
   }
 );
@@ -1358,30 +1254,21 @@ function updateCountdown(){
   .getElementById("hours")
   .textContent =
     String(hours)
-    .padStart(
-      2,
-      "0"
-    );
+    .padStart(2,"0");
 
 
   document
   .getElementById("minutes")
   .textContent =
     String(minutes)
-    .padStart(
-      2,
-      "0"
-    );
+    .padStart(2,"0");
 
 
   document
   .getElementById("seconds")
   .textContent =
     String(seconds)
-    .padStart(
-      2,
-      "0"
-    );
+    .padStart(2,"0");
 
 }
 
