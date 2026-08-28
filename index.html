@@ -11,11 +11,6 @@
 <title>Nada Graduation Invitation</title>
 
 <style>
-
-/* =========================
-   RESET
-========================= */
-
 *{
   margin:0;
   padding:0;
@@ -34,9 +29,8 @@ body{
   font-family:Arial, sans-serif;
 }
 
-
 /* =========================
-   MOBILE BOOK
+   BOOK
 ========================= */
 
 .book{
@@ -54,7 +48,6 @@ body{
 
   touch-action:none;
 }
-
 
 /* =========================
    PAGE
@@ -84,10 +77,8 @@ body{
   will-change:transform;
 }
 
-
 /* =========================
-   IMAGES
-   الصورة كاملة بدون قص
+   الصور تغطي الشاشة كاملة
 ========================= */
 
 .page > img{
@@ -99,10 +90,8 @@ body{
 
   display:block;
 
-  object-fit:contain;
+  object-fit:cover;
   object-position:center center;
-
-  background:#dcecf7;
 
   pointer-events:none;
 
@@ -110,7 +99,6 @@ body{
   -webkit-user-select:none;
   -webkit-user-drag:none;
 }
-
 
 /* =========================
    PAGE ORDER
@@ -125,18 +113,14 @@ body{
 .page:nth-of-type(7){z-index:20;}
 .page:nth-of-type(8){z-index:10;}
 
-
 /* =========================
-   PAGE FLIP
+   FLIP
 ========================= */
 
 .page.flipped{
   transform:rotateY(-180deg);
   pointer-events:none;
 }
-
-
-/* ظل أثناء تقليب الورقة */
 
 .page::after{
   content:"";
@@ -152,7 +136,7 @@ body{
     linear-gradient(
       90deg,
       rgba(0,0,0,.18),
-      rgba(0,0,0,.05) 16%,
+      rgba(0,0,0,.05) 15%,
       transparent 40%
     );
 
@@ -163,9 +147,8 @@ body{
   opacity:1;
 }
 
-
 /* =========================
-   VIDEO
+   VIDEO FULL SCREEN
 ========================= */
 
 .page-video{
@@ -177,7 +160,7 @@ body{
 
   display:block;
 
-  object-fit:contain;
+  object-fit:cover;
   object-position:center center;
 
   background:#dcecf7;
@@ -188,32 +171,16 @@ body{
   pointer-events:none;
 }
 
-
-/* إخفاء شريط الفيديو */
-
-video::-webkit-media-controls{
-  display:none !important;
-}
-
-video::-webkit-media-controls-enclosure{
-  display:none !important;
-}
-
-video::-webkit-media-controls-panel{
-  display:none !important;
-}
-
-video::-webkit-media-controls-play-button{
-  display:none !important;
-}
-
+video::-webkit-media-controls,
+video::-webkit-media-controls-enclosure,
+video::-webkit-media-controls-panel,
+video::-webkit-media-controls-play-button,
 video::-webkit-media-controls-start-playback-button{
   display:none !important;
 }
 
-
 /* =========================
-   MUSIC BUTTON
+   MUSIC
 ========================= */
 
 .music-btn{
@@ -240,15 +207,11 @@ video::-webkit-media-controls-start-playback-button{
 
   font-size:20px;
 
-  cursor:pointer;
-
-  box-shadow:
-    0 5px 16px rgba(0,0,0,.14);
+  box-shadow:0 5px 16px rgba(0,0,0,.14);
 }
 
-
 /* =========================
-   NAVIGATION ARROWS
+   NAVIGATION
 ========================= */
 
 .nav-arrow{
@@ -274,12 +237,7 @@ video::-webkit-media-controls-start-playback-button{
 
   font-size:28px;
 
-  cursor:pointer;
-
-  box-shadow:
-    0 4px 14px rgba(0,0,0,.14);
-
-  transition:opacity .25s ease;
+  box-shadow:0 4px 14px rgba(0,0,0,.14);
 }
 
 #prevBtn{
@@ -288,22 +246,6 @@ video::-webkit-media-controls-start-playback-button{
 
 #nextBtn{
   right:14px;
-
-  animation:
-    nextMove 1.3s ease-in-out infinite;
-}
-
-@keyframes nextMove{
-
-  0%,
-  100%{
-    transform:translateX(0);
-  }
-
-  50%{
-    transform:translateX(-5px);
-  }
-
 }
 
 .nav-arrow.hidden{
@@ -311,48 +253,10 @@ video::-webkit-media-controls-start-playback-button{
   pointer-events:none;
 }
 
-
-/* أول صفحة بدون أسهم */
-
 .book.first-page .nav-arrow{
   opacity:0;
   pointer-events:none;
 }
-
-
-/* =========================
-   SWIPE LABEL
-========================= */
-
-.swipe-label{
-  position:absolute;
-
-  left:50%;
-  bottom:calc(25px + env(safe-area-inset-bottom));
-
-  transform:translateX(-50%);
-
-  z-index:850;
-
-  padding:6px 12px;
-
-  border-radius:20px;
-
-  background:rgba(255,255,255,.88);
-
-  color:#555;
-
-  font-size:11px;
-
-  white-space:nowrap;
-
-  pointer-events:none;
-}
-
-.book.first-page .swipe-label{
-  display:none;
-}
-
 
 /* =========================
    COUNTDOWN
@@ -378,25 +282,14 @@ video::-webkit-media-controls-start-playback-button{
 
   text-align:center;
 
-  min-width:18%;
-  min-height:8%;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+  font-family:Georgia, serif;
 
   font-size:clamp(30px,9vw,48px);
 
-  font-weight:500;
-
   color:#202020;
-
-  line-height:1;
 }
 
-
-/* الأرقام داخل وسط المربعات */
+/* وسط المربعات */
 
 #days{
   left:29%;
@@ -418,9 +311,8 @@ video::-webkit-media-controls-start-playback-button{
   top:69%;
 }
 
-
 /* =========================
-   LOCATION LINK
+   LOCATION
 ========================= */
 
 .location-click{
@@ -435,13 +327,10 @@ video::-webkit-media-controls-start-playback-button{
   height:13%;
 
   display:block;
-
-  background:transparent;
 }
 
-
 /* =========================
-   RSVP LINK
+   RSVP
 ========================= */
 
 .rsvp-click{
@@ -456,295 +345,120 @@ video::-webkit-media-controls-start-playback-button{
   height:12%;
 
   display:block;
-
-  background:transparent;
 }
-
-
-/* =========================
-   SMALL PHONES
-========================= */
-
-@media(max-width:380px){
-
-  .music-btn,
-  .nav-arrow{
-    width:42px;
-    height:42px;
-  }
-
-  .countdown-number{
-    font-size:clamp(26px,8vw,42px);
-  }
-
-}
-
 </style>
 </head>
 
 <body>
 
-<div
-  class="book first-page"
-  id="book"
->
+<div class="book first-page" id="book">
 
+  <!-- PAGE 01 -->
+  <section class="page">
+    <img src="cover.png" alt="Cover">
+  </section>
 
-<!-- PAGE 01 COVER -->
-<section class="page">
-
-  <img
-    src="cover.png"
-    alt="Nada Graduation Cover"
-  >
-
-</section>
-
-
-<!-- PAGE 02 VIDEO -->
-<section class="page">
-
-  <video
-    id="nadaVideo"
-    class="page-video"
-
-    playsinline
-    webkit-playsinline
-
-    preload="auto"
-
-    muted
-
-    disablepictureinpicture
-
-    controlslist="nodownload noplaybackrate nofullscreen"
-  >
-
-    <source
-      src="video.mp4"
-      type="video/mp4"
+  <!-- PAGE 02 VIDEO -->
+  <section class="page">
+    <video
+      id="nadaVideo"
+      class="page-video"
+      playsinline
+      webkit-playsinline
+      preload="metadata"
+      muted
+      disablepictureinpicture
+      controlslist="nodownload noplaybackrate nofullscreen"
     >
+      <source src="video.mp4" type="video/mp4">
+    </video>
+  </section>
 
-  </video>
+  <!-- PAGE 03 -->
+  <section class="page">
+    <img src="savetime.png" alt="Save the Time">
+  </section>
 
-</section>
+  <!-- PAGE 04 -->
+  <section class="page">
+    <img src="date-time.png" alt="Date and Time">
+  </section>
 
+  <!-- PAGE 05 COUNTDOWN -->
+  <section class="page">
+    <img src="countdown.png" alt="Countdown">
 
-<!-- PAGE 03 SAVE THE TIME -->
-<section class="page">
-
-  <img
-    src="savetime.png"
-    alt="Save the Time"
-  >
-
-</section>
-
-
-<!-- PAGE 04 DATE TIME -->
-<section class="page">
-
-  <img
-    src="date-time.png"
-    alt="Date and Time"
-  >
-
-</section>
-
-
-<!-- PAGE 05 COUNTDOWN -->
-<section class="page">
-
-  <img
-    src="countdown.png"
-    alt="Countdown"
-  >
-
-  <div class="countdown-overlay">
-
-    <div
-      id="days"
-      class="countdown-number">
+    <div class="countdown-overlay">
+      <div id="days" class="countdown-number"></div>
+      <div id="hours" class="countdown-number"></div>
+      <div id="minutes" class="countdown-number"></div>
+      <div id="seconds" class="countdown-number"></div>
     </div>
+  </section>
 
-    <div
-      id="hours"
-      class="countdown-number">
-    </div>
+  <!-- PAGE 06 LOCATION -->
+  <section class="page">
+    <img src="location.png" alt="Location">
 
-    <div
-      id="minutes"
-      class="countdown-number">
-    </div>
+    <a
+      class="location-click"
+      href="https://maps.app.goo.gl/1EMywhgSKpQ3VcEL6"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Open Location"
+    ></a>
+  </section>
 
-    <div
-      id="seconds"
-      class="countdown-number">
-    </div>
+  <!-- PAGE 07 -->
+  <section class="page">
+    <img src="dress-code.png" alt="Dress Code">
+  </section>
 
-  </div>
+  <!-- PAGE 08 RSVP -->
+  <section class="page">
+    <img src="rsvp.png" alt="Confirm Attendance">
 
-</section>
+    <a
+      class="rsvp-click"
+      href="https://wa.me/970598494977?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%A4%D9%83%D8%AF%20%D8%AD%D8%B6%D9%88%D8%B1%D9%8A%20%D9%84%D8%AD%D9%81%D9%84%20%D8%AA%D8%AE%D8%B1%D8%AC%20%D9%86%D8%AF%D9%89%20%F0%9F%8E%93%E2%9C%A8"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Confirm Attendance"
+    ></a>
+  </section>
 
+  <!-- MUSIC -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
 
-<!-- PAGE 06 LOCATION -->
-<section class="page">
+  <button id="musicBtn" class="music-btn" type="button">♪</button>
 
-  <img
-    src="location.png"
-    alt="Jasmine Hall Hebron"
-  >
-
-  <a
-    class="location-click"
-
-    href="https://maps.app.goo.gl/1EMywhgSKpQ3VcEL6"
-
-    target="_blank"
-
-    rel="noopener noreferrer"
-
-    aria-label="Open Location"
-  ></a>
-
-</section>
-
-
-<!-- PAGE 07 DRESS CODE -->
-<section class="page">
-
-  <img
-    src="dress-code.png"
-    alt="Dress Code"
-  >
-
-</section>
-
-
-<!-- PAGE 08 RSVP -->
-<section class="page">
-
-  <img
-    src="rsvp.png"
-    alt="Confirm Attendance"
-  >
-
-  <a
-    class="rsvp-click"
-
-    href="https://wa.me/970598494977?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%A4%D9%83%D8%AF%20%D8%AD%D8%B6%D9%88%D8%B1%D9%8A%20%D9%84%D8%AD%D9%81%D9%84%20%D8%AA%D8%AE%D8%B1%D8%AC%20%D9%86%D8%AF%D9%89%20%F0%9F%8E%93%E2%9C%A8"
-
-    target="_blank"
-
-    rel="noopener noreferrer"
-
-    aria-label="Confirm Attendance"
-  ></a>
-
-</section>
-
-
-<!-- MUSIC -->
-<audio
-  id="bgMusic"
-  loop
-  preload="auto"
->
-
-  <source
-    src="music.mp3"
-    type="audio/mpeg"
-  >
-
-</audio>
-
-
-<button
-  id="musicBtn"
-  class="music-btn"
-  type="button"
-  aria-label="Music"
->
-♪
-</button>
-
-
-<!-- PREVIOUS -->
-<button
-  id="prevBtn"
-  class="nav-arrow hidden"
-  type="button"
-  aria-label="Previous Page"
->
-‹
-</button>
-
-
-<!-- SWIPE LABEL -->
-<div
-  id="swipeLabel"
-  class="swipe-label"
->
-اسحبي الصفحة
-</div>
-
-
-<!-- NEXT -->
-<button
-  id="nextBtn"
-  class="nav-arrow hidden"
-  type="button"
-  aria-label="Next Page"
->
-›
-</button>
-
+  <button id="prevBtn" class="nav-arrow hidden" type="button">‹</button>
+  <button id="nextBtn" class="nav-arrow hidden" type="button">›</button>
 
 </div>
-
 
 <script>
+const book = document.getElementById("book");
+const pages = [...document.querySelectorAll(".page")];
 
-/* =========================
-   VARIABLES
-========================= */
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
 
-const book =
-  document.getElementById("book");
+const nadaVideo = document.getElementById("nadaVideo");
 
-const pages =
-  [...document.querySelectorAll(".page")];
-
-const nextBtn =
-  document.getElementById("nextBtn");
-
-const prevBtn =
-  document.getElementById("prevBtn");
-
-const swipeLabel =
-  document.getElementById("swipeLabel");
-
-const nadaVideo =
-  document.getElementById("nadaVideo");
-
-const bgMusic =
-  document.getElementById("bgMusic");
-
-const musicBtn =
-  document.getElementById("musicBtn");
-
+const bgMusic = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
 
 let currentPage = 0;
-
 let animating = false;
 
 let musicPlaying = false;
-
 let musicManuallyStopped = false;
 
-
 /* =========================
-   NAVIGATION STATE
+   NAVIGATION
 ========================= */
 
 function updateNavigation(){
@@ -754,290 +468,158 @@ function updateNavigation(){
     book.classList.add("first-page");
 
     prevBtn.classList.add("hidden");
-
     nextBtn.classList.add("hidden");
 
-    return;
-  }
+  }else{
 
-
-  book.classList.remove("first-page");
-
-
-  if(currentPage > 0){
+    book.classList.remove("first-page");
 
     prevBtn.classList.remove("hidden");
 
-  }else{
-
-    prevBtn.classList.add("hidden");
-
-  }
-
-
-  if(currentPage === pages.length - 1){
-
-    nextBtn.classList.add("hidden");
-
-    swipeLabel.textContent =
-      "الصفحة الأخيرة";
-
-  }else{
-
-    nextBtn.classList.remove("hidden");
-
-    swipeLabel.textContent =
-      "اسحبي الصفحة";
+    if(currentPage === pages.length - 1){
+      nextBtn.classList.add("hidden");
+    }else{
+      nextBtn.classList.remove("hidden");
+    }
 
   }
 
 }
 
-
 /* =========================
-   NEXT PAGE
+   NEXT
 ========================= */
 
 function nextPage(){
 
-  if(animating){
-    return;
-  }
+  if(animating) return;
 
-  if(currentPage >= pages.length - 1){
-    return;
-  }
-
+  if(currentPage >= pages.length - 1) return;
 
   animating = true;
 
-  const current =
-    pages[currentPage];
+  const current = pages[currentPage];
 
+  current.classList.add("flipping");
 
-  current.classList.add(
-    "flipping"
-  );
+  requestAnimationFrame(()=>{
+    current.classList.add("flipped");
+  });
 
+  setTimeout(()=>{
 
-  requestAnimationFrame(
-    ()=>{
+    current.classList.remove("flipping");
 
-      current.classList.add(
-        "flipped"
-      );
+    currentPage++;
 
-    }
-  );
+    updateNavigation();
 
+    handleVideo();
 
-  setTimeout(
-    ()=>{
+    animating = false;
 
-      current.classList.remove(
-        "flipping"
-      );
-
-
-      currentPage++;
-
-
-      updateNavigation();
-
-
-      handleVideo();
-
-
-      animating = false;
-
-    },
-    900
-  );
+  },900);
 
 }
 
-
 /* =========================
-   PREVIOUS PAGE
+   PREVIOUS
 ========================= */
 
 function previousPage(){
 
-  if(animating){
-    return;
-  }
+  if(animating) return;
 
-  if(currentPage <= 0){
-    return;
-  }
-
+  if(currentPage <= 0) return;
 
   animating = true;
 
+  const previous = pages[currentPage - 1];
 
-  const previous =
-    pages[currentPage - 1];
+  previous.classList.add("flipping");
 
+  previous.classList.remove("flipped");
 
-  previous.classList.add(
-    "flipping"
-  );
+  setTimeout(()=>{
 
+    previous.classList.remove("flipping");
 
-  previous.classList.remove(
-    "flipped"
-  );
+    currentPage--;
 
+    updateNavigation();
 
-  setTimeout(
-    ()=>{
+    handleVideo();
 
-      previous.classList.remove(
-        "flipping"
-      );
+    animating = false;
 
-
-      currentPage--;
-
-
-      updateNavigation();
-
-
-      handleVideo();
-
-
-      animating = false;
-
-    },
-    900
-  );
+  },900);
 
 }
 
-
 /* =========================
-   NAV BUTTONS
+   BUTTONS
 ========================= */
 
-nextBtn.addEventListener(
-  "click",
-  ()=>{
+nextBtn.addEventListener("click", ()=>{
 
-    tryStartMusic();
+  tryStartMusic();
 
-    nextPage();
+  nextPage();
 
-  }
-);
+});
 
-
-prevBtn.addEventListener(
-  "click",
-  ()=>{
-
-    previousPage();
-
-  }
-);
-
+prevBtn.addEventListener("click", previousPage);
 
 /* =========================
-   TOUCH SWIPE
+   SWIPE
 ========================= */
 
 let startX = 0;
-
 let startY = 0;
 
+book.addEventListener("touchstart", event=>{
 
-book.addEventListener(
-  "touchstart",
-  event=>{
-
-    if(
-      event.target.closest("a") ||
-      event.target.closest("button")
-    ){
-      return;
-    }
-
-
-    const touch =
-      event.touches[0];
-
-
-    startX =
-      touch.clientX;
-
-
-    startY =
-      touch.clientY;
-
-
-    tryStartMusic();
-
-  },
-  {
-    passive:true
+  if(
+    event.target.closest("a") ||
+    event.target.closest("button")
+  ){
+    return;
   }
-);
 
+  const touch = event.touches[0];
 
-book.addEventListener(
-  "touchend",
-  event=>{
+  startX = touch.clientX;
+  startY = touch.clientY;
 
-    if(
-      event.target.closest("a") ||
-      event.target.closest("button")
-    ){
-      return;
-    }
+  tryStartMusic();
 
+},{passive:true});
 
-    const touch =
-      event.changedTouches[0];
+book.addEventListener("touchend", event=>{
 
-
-    const dx =
-      touch.clientX -
-      startX;
-
-
-    const dy =
-      touch.clientY -
-      startY;
-
-
-    if(Math.abs(dx) < 45){
-      return;
-    }
-
-
-    if(
-      Math.abs(dx) <
-      Math.abs(dy)
-    ){
-      return;
-    }
-
-
-    if(dx < 0){
-
-      nextPage();
-
-    }else{
-
-      previousPage();
-
-    }
-
-  },
-  {
-    passive:true
+  if(
+    event.target.closest("a") ||
+    event.target.closest("button")
+  ){
+    return;
   }
-);
 
+  const touch = event.changedTouches[0];
+
+  const dx = touch.clientX - startX;
+  const dy = touch.clientY - startY;
+
+  if(Math.abs(dx) < 45) return;
+
+  if(Math.abs(dx) < Math.abs(dy)) return;
+
+  if(dx < 0){
+    nextPage();
+  }else{
+    previousPage();
+  }
+
+},{passive:true});
 
 /* =========================
    VIDEO
@@ -1049,44 +631,30 @@ function handleVideo(){
 
     nadaVideo.currentTime = 0;
 
-
-    nadaVideo
-    .play()
-    .catch(()=>{});
+    nadaVideo.play().catch(()=>{});
 
   }else{
 
     nadaVideo.pause();
 
+    nadaVideo.currentTime = 0;
+
   }
 
 }
 
-
 /* بعد انتهاء الفيديو
    ينتقل تلقائياً */
 
-nadaVideo.addEventListener(
-  "ended",
-  ()=>{
+nadaVideo.addEventListener("ended", ()=>{
 
-    if(currentPage !== 1){
-      return;
-    }
+  if(currentPage !== 1) return;
 
+  setTimeout(()=>{
+    nextPage();
+  },150);
 
-    setTimeout(
-      ()=>{
-
-        nextPage();
-
-      },
-      150
-    );
-
-  }
-);
-
+});
 
 /* =========================
    MUSIC
@@ -1094,200 +662,119 @@ nadaVideo.addEventListener(
 
 async function tryStartMusic(){
 
-  if(musicManuallyStopped){
-    return;
-  }
+  if(musicManuallyStopped) return;
 
-
-  if(musicPlaying){
-    return;
-  }
-
+  if(musicPlaying) return;
 
   try{
 
-    bgMusic.volume =
-      0.42;
-
+    bgMusic.volume = 0.42;
 
     await bgMusic.play();
 
+    musicPlaying = true;
 
-    musicPlaying =
-      true;
-
-
-    musicBtn.textContent =
-      "♫";
+    musicBtn.textContent = "♫";
 
   }catch(error){}
 
 }
 
+musicBtn.addEventListener("click", async event=>{
 
-musicBtn.addEventListener(
-  "click",
-  async event=>{
+  event.stopPropagation();
 
-    event.stopPropagation();
+  if(musicPlaying){
 
+    bgMusic.pause();
 
-    if(musicPlaying){
+    musicPlaying = false;
 
-      bgMusic.pause();
+    musicManuallyStopped = true;
 
+    musicBtn.textContent = "♪";
 
-      musicPlaying =
-        false;
-
-
-      musicManuallyStopped =
-        true;
-
-
-      musicBtn.textContent =
-        "♪";
-
-
-      return;
-
-    }
-
-
-    try{
-
-      musicManuallyStopped =
-        false;
-
-
-      bgMusic.volume =
-        0.42;
-
-
-      await bgMusic.play();
-
-
-      musicPlaying =
-        true;
-
-
-      musicBtn.textContent =
-        "♫";
-
-    }catch(error){}
-
+    return;
   }
-);
 
+  try{
+
+    musicManuallyStopped = false;
+
+    bgMusic.volume = 0.42;
+
+    await bgMusic.play();
+
+    musicPlaying = true;
+
+    musicBtn.textContent = "♫";
+
+  }catch(error){}
+
+});
 
 /* =========================
    COUNTDOWN
 ========================= */
 
 const eventDate =
-  new Date(
-    "2027-07-27T19:00:00+03:00"
-  );
-
+  new Date("2027-07-27T19:00:00+03:00");
 
 function updateCountdown(){
 
-  let difference =
+  let diff =
     eventDate.getTime() -
     Date.now();
 
-
-  if(difference < 0){
-
-    difference = 0;
-
+  if(diff < 0){
+    diff = 0;
   }
 
-
-  const oneDay =
+  const day =
     1000 * 60 * 60 * 24;
 
-
-  const oneHour =
+  const hour =
     1000 * 60 * 60;
 
-
-  const oneMinute =
+  const minute =
     1000 * 60;
 
+  const d =
+    Math.floor(diff / day);
 
-  const days =
+  const h =
     Math.floor(
-      difference /
-      oneDay
+      (diff % day) / hour
     );
 
-
-  const hours =
+  const m =
     Math.floor(
-      (difference % oneDay) /
-      oneHour
+      (diff % hour) / minute
     );
 
-
-  const minutes =
+  const s =
     Math.floor(
-      (difference % oneHour) /
-      oneMinute
+      (diff % minute) / 1000
     );
 
+  document.getElementById("days").textContent = d;
 
-  const seconds =
-    Math.floor(
-      (difference % oneMinute) /
-      1000
-    );
+  document.getElementById("hours").textContent =
+    String(h).padStart(2,"0");
 
+  document.getElementById("minutes").textContent =
+    String(m).padStart(2,"0");
 
-  document
-  .getElementById("days")
-  .textContent =
-    days;
-
-
-  document
-  .getElementById("hours")
-  .textContent =
-    String(hours)
-    .padStart(2,"0");
-
-
-  document
-  .getElementById("minutes")
-  .textContent =
-    String(minutes)
-    .padStart(2,"0");
-
-
-  document
-  .getElementById("seconds")
-  .textContent =
-    String(seconds)
-    .padStart(2,"0");
+  document.getElementById("seconds").textContent =
+    String(s).padStart(2,"0");
 
 }
 
-
 updateCountdown();
 
-
-setInterval(
-  updateCountdown,
-  1000
-);
-
-
-/* =========================
-   INITIALIZE
-========================= */
+setInterval(updateCountdown,1000);
 
 updateNavigation();
-
 </script>
 
 </body>
